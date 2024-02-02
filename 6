@@ -1,0 +1,31 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def maxPathSum(root):
+    def maxPathSumHelper(node):
+        nonlocal max_sum
+        if not node:
+            return 0
+
+        left_sum = max(0, maxPathSumHelper(node.left))
+        right_sum = max(0, maxPathSumHelper(node.right))
+
+        max_sum = max(max_sum, left_sum + right_sum + node.val)
+
+        return max(left_sum, right_sum) + node.val
+
+    max_sum = float('-inf')  
+    maxPathSumHelper(root)
+    return max_sum
+
+# Приклади використання
+# Приклад1
+root1 = TreeNode(1, TreeNode(2), TreeNode(3))
+print(maxPathSum(root1))  # Виведе 6
+
+# Приклад 2
+root2 = TreeNode(-10, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7)))
+print(maxPathSum(root2))  # Виведе 42
