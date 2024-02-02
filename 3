@@ -1,0 +1,37 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def invertTree(root):
+    if not root:
+        return None
+    
+    root.left, root.right = root.right, root.left
+    
+    invertTree(root.left)
+    invertTree(root.right)
+    
+    return root
+
+# Приклади використання
+# Приклад 1
+root1 = TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7, TreeNode(6), TreeNode(9)))
+new_root1 = invertTree(root1)
+# Виведе [4,7,2,9,6,3,1]
+print(new_root1.val, new_root1.left.val, new_root1.right.val,
+      new_root1.left.left.val, new_root1.left.right.val,
+      new_root1.right.left.val, new_root1.right.right.val)
+
+# Приклад 2
+root2 = TreeNode(2, TreeNode(1), TreeNode(3))
+new_root2 = invertTree(root2)
+# Виведе [2, 3, 1]
+print(new_root2.val, new_root2.left.val, new_root2.right.val)
+
+# Приклад 3
+root3 = None
+new_root3 = invertTree(root3)
+# Виведе None
+print(new_root3)
