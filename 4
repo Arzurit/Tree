@@ -1,0 +1,27 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def kthSmallest(root, k):
+    def inOrderTraversal(node, values):
+        if node:
+            inOrderTraversal(node.left, values)
+            values.append(node.val)
+            inOrderTraversal(node.right, values)
+
+    values = []
+
+    inOrderTraversal(root, values)
+
+    return values[k - 1]
+
+# Приклади використання
+# Приклад 1
+root1 = TreeNode(3, TreeNode(1, None, TreeNode(2)), TreeNode(4))
+print(kthSmallest(root1, 1))  # Виведе 1
+
+# Приклад 2
+root2 = TreeNode(5, TreeNode(3, TreeNode(2, TreeNode(1)), TreeNode(4)), TreeNode(6))
+print(kthSmallest(root2, 3))  # Виведе 3
